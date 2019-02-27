@@ -2,7 +2,6 @@ const appInsights = require("applicationinsights");
 appInsights.setup("9f921ab9-daa6-45f9-81a6-e1f275d5e77b");
 appInsights.start();
 
-
 //  OpenShift sample Node application
 var express = require('express'),
     app     = express(),
@@ -61,6 +60,10 @@ var initDb = function(callback) {
   if (mongoURL == null) return;
 
   var mongodb = require('mongodb');
+
+// Add your instrumentation key or use the APPLICATIONINSIGHTSKEY environment variable on your production machine to start collecting data.
+var ai = require('applicationinsights');
+ai.setup(process.env.APPLICATIONINSIGHTSKEY || 'your_instrumentation_key').start();
   if (mongodb == null) return;
 
   mongodb.connect(mongoURL, function(err, conn) {
